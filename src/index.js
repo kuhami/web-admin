@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-
-
-import APP from "./print";
-
+import { Router, Route } from 'react-router'
+import App from './APP'
 
 ReactDOM.render(
-    <APP/>,
+    <App/>,
     document.getElementById('app')
 )
 
