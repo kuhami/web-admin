@@ -1,4 +1,4 @@
 #忽略文件
-node_modules/
-.idea/
-dist/
+**/node_modules
+.idea
+/dist
