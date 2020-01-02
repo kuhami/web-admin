@@ -25,7 +25,9 @@ export default class App extends Component {
             collapsed: !this.state.collapsed,
         });
     };
-
+    onOpenChange = (openKey) =>{
+        console.log(openKey);
+    }
     handleClick = (e) =>{
         console.log(e,this);
         const {key} = e
@@ -44,7 +46,9 @@ export default class App extends Component {
             <Layout className={'layout'}>
                 <Sider
                     trigger={null} collapsible collapsed={this.state.collapsed}>
-                    <div className="logo" />
+                    <div className="logo">
+                        Web
+                    </div>
                     <Menu theme="dark" mode="inline"
                           defaultSelectedKeys={['1']}
                           onOpenChange={this.onOpenChange}

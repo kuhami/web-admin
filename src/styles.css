@@ -24,4 +24,7 @@
     height: 32px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px;
+    color: #fff;
+    line-height: 32px;
+    text-align: center;
 }
