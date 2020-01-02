@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin'); //
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
@@ -46,7 +47,8 @@ module.exports = {
             template: 'index.html',
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new FriendlyErrorsWebpackPlugin(),
     ],
     optimization: {
         minimizer: [
