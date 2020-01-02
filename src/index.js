@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { LayoutProvider } from 'react-page-layout';
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory, hashHistory  } from 'react-router'
 import App from './APP'
 import Index from "./routes/index";
 import Home from "./routes/home";
@@ -33,7 +33,7 @@ const routeConfig = [
 
 ReactDOM.render(
     <LayoutProvider>
-        <Router history={browserHistory} routes={routeConfig} />
+        <Router history={hashHistory} routes={routeConfig} />
     </LayoutProvider>,
     document.getElementById('app')
 )

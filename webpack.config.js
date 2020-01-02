@@ -12,7 +12,7 @@ module.exports = {
     devtool: 'source-map',
     mode: "development",
     entry: {
-        app: './src/index.js'
+        app: path.join(__dirname, './src/index.js')
     },
     output: {
         filename: 'js.[name].js',
