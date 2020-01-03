@@ -11,9 +11,21 @@
       "path": "sub1",
       "childen": [
         {
-          "text": "Index",
+        "text": "Index",
+        "icon": "edit",
+        "path": "/index"
+        },
+        {
+          "text": "二级",
           "icon": "edit",
-          "path": "/index"
+          "path": "sub2",
+          "childen": [
+            {
+              "text": "三级",
+              "icon": "eye",
+              "path": "/index2"
+            }
+          ]
         }
       ]
     }
