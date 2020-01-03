@@ -13,7 +13,7 @@ export default class App extends Component {
         const {component} = this.props.route.childRoutes[0];
         const { pathname } = props.location;
         const openKey = this.parentPath(DataList.tabs, pathname)
-
+        console.log(openKey);
 
         this.state = {
             collapsed: false,
@@ -27,11 +27,11 @@ export default class App extends Component {
 
     //通过路由找到父级菜单path
     parentPath = (DataList,pathname,parentPatn='/') =>{
-        let parent = '';
+        let parent = [];
         const getData = (DataList,pathname,parentPatn) =>{
             DataList.forEach((v)=>{
                 if(v.path === pathname){
-                    parent = parentPatn
+                    parent.push(parentPatn)
                 }else if(v.childen && v.childen.length){
                     getData(v.childen,pathname,v.path);
                 }

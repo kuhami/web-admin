@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-export default class Index extends Component {
+export default class Index2 extends Component {
     constructor(props) {
         super(props);
     }
@@ -9,7 +9,7 @@ export default class Index extends Component {
     render() {
         return (
             <div>
-                这是第二2222层级
+                这是第三三3333层级
             </div>
         );
     }
