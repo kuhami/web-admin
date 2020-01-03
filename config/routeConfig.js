@@ -18,7 +18,7 @@
 //         ]
 //     }
 // ];
-import App from '../src/APP'
+import App from '../src/layouts/APP'
 import Index from "../src/routes/index";
 import Index2 from "../src/routes/index2";
 import Home from "../src/routes/home";

@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Layout, Menu, Icon} from "antd";
-import { Router, Route, Link, browserHistory  } from 'react-router'
-import DataList from '../config/dataList'
-import Home from "./routes/home";
-import './styles.css';
+import { Link, browserHistory  } from 'react-router'
+import DataList from '../../config/dataList'
+import Home from "../routes/home";
+import '../styles.css';
 
 const { Header, Sider, Content } = Layout;
 
@@ -12,7 +12,7 @@ export default class App extends Component {
         super(props);
         const {component} = this.props.route.childRoutes[0];
         const { pathname } = props.location;
-        const openKey = this.parentPath(DataList.tabs, pathname)
+        const openKey = this.parentPath(DataList.tabs, pathname);
         console.log(openKey);
 
         this.state = {
