@@ -1,0 +1,21 @@
+{
+  "tabs": [
+    {
+      "text": "Home",
+      "icon": "home",
+      "path": "/home"
+    },
+    {
+      "text": "组织管理",
+      "icon": "user",
+      "path": "sub1",
+      "childen": [
+        {
+          "text": "Index",
+          "icon": "edit",
+          "path": "/index"
+        }
+      ]
+    }
+  ]
+}

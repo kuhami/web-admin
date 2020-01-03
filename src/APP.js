@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Layout, Menu, Icon} from "antd";
-import { Router, Route, Link } from 'react-router'
+import { Router, Route, Link, browserHistory  } from 'react-router'
+import DataList from '../config/dataList'
 import Home from "./routes/home";
-
 import './styles.css';
 
 const { Header, Sider, Content } = Layout;
@@ -10,16 +10,36 @@ const { Header, Sider, Content } = Layout;
 export default class App extends Component {
     constructor(props) {
         super(props);
-        const {path,component} = this.props.route.childRoutes[0];
+        const {component} = this.props.route.childRoutes[0];
+        const { pathname } = props.location;
+        const openKey = this.parentPath(DataList.tabs, pathname)
+
 
         this.state = {
             collapsed: false,
-            path,
-            component
+            pathname,
+            component,
+            defaultSelectedKeys:[pathname],
+            DataList:DataList.tabs,
+            openKeys: [openKey]
         };
     }
 
-
+    //通过路由找到父级菜单path
+    parentPath = (DataList,pathname,parentPatn='/') =>{
+        let parent = '';
+        const getData = (DataList,pathname,parentPatn) =>{
+            DataList.forEach((v)=>{
+                if(v.path === pathname){
+                    parent = parentPatn
+                }else if(v.childen && v.childen.length){
+                    getData(v.childen,pathname,v.path);
+                }
+            })
+        }
+        getData(DataList, pathname, parentPatn);
+        return parent;
+    }
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
@@ -27,21 +47,42 @@ export default class App extends Component {
     };
     onOpenChange = (openKey) =>{
         console.log(openKey);
-    }
-    handleClick = (e) =>{
-        console.log(e,this);
-        const {key} = e
-        const {path,component} = this.props.route.childRoutes[key-1];
 
         this.setState({
-            path,
-            component
+            openKeys:openKey
         })
+    }
+    handleClick = (e) =>{
+        const {key} = e
+        console.log(this);
+
+        browserHistory.push(`#${key}`)
+    }
+    getMenuList = (DataList)=> {
+
+        return DataList.map((v)=>{
+            if(v.childen && v.childen.length){
+                return (
+                    <Menu.SubMenu key={v.path}
+                                  title={<span><Icon type={v.icon} />
+                                  <span>{ v.text }</span>
+                                  </span>}>
+                        {this.getMenuList(v.childen)}
+                    </Menu.SubMenu>
+                )
+            }
+            return (<Menu.Item key={v.path}>
+                <Link to={v.path}>
+                    <Icon type={v.icon} />
+                    <span>{v.text}</span>
+                </Link>
+            </Menu.Item>)
+        })
+
 
     }
     render() {
-        const {path,component} = this.state;
-
+        const {defaultSelectedKeys,component, DataList, openKeys} = this.state;
         return (
             <Layout className={'layout'}>
                 <Sider
@@ -49,23 +90,14 @@ export default class App extends Component {
                     <div className="logo">
                         Web
                     </div>
-                    <Menu theme="dark" mode="inline"
-                          defaultSelectedKeys={['1']}
+                    <Menu theme="dark"
+                          mode="inline"
+                          defaultSelectedKeys={defaultSelectedKeys}
+                          openKeys={openKeys}
                           onOpenChange={this.onOpenChange}
                           onClick={this.handleClick}
                     >
-                        <Menu.Item key="1">
-                            <Icon type="user" />
-                            <span><Link to="/home" style={{color:'#fff'}}>Home</Link></span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="video-camera" />
-                            <span><Link to="/index" style={{color:'#fff'}}>Index</Link></span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="upload" />
-                            <span>nav</span>
-                        </Menu.Item>
+                        {this.getMenuList(DataList)}
                     </Menu>
                 </Sider>
                 <Layout>
