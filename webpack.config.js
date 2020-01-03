@@ -28,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback:'style-loader',
                     use:'css-loader'
@@ -37,7 +37,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 exclude: /\.module\.less$/,
-                loader: ExtractTextWebpackPlugin.extract(['css-loader', 'postcss-loader', 'less-loader']),
+                loader: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'less-loader']),
             },
             {
                 test: /\.(bmp|gif|jpeg|jpg|png)$/,
