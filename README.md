@@ -1,5 +1,5 @@
 # web-admin
-0基础搭建后台项目webpack+antd+react
+0基础入门搭建webpack+antd+react+react-router+react-redux后台项目
 
 开发中....
 
