@@ -30,7 +30,7 @@ const routeConfig = [
             { path: 'index', component: Index },
             { path: 'home', component: Home },
             { path: 'index2', component: Index2 },
-            // { path: 'nav', component: Nav },
+            { path: 'nav', component: Nav },
             // { path: 'inbox',
             //     component: Inbox,
             //     childRoutes: [

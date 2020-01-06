@@ -26,6 +26,30 @@
               "path": "/index2"
             }
           ]
+        },
+        {
+          "text": "二级1",
+          "icon": "edit",
+          "path": "sub3",
+          "childen": [
+            {
+              "text": "三级1",
+              "icon": "eye",
+              "path": "/index3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "层级管理",
+      "icon": "user",
+      "path": "sub4",
+      "childen": [
+        {
+          "text": "NAV",
+          "icon": "nav",
+          "path": "/nav"
         }
       ]
     }
