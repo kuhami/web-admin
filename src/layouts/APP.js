@@ -102,9 +102,10 @@ export default class App extends Component {
         return (
             <Layout className={'layout'}>
                 <Sider
-                    trigger={null} collapsible collapsed={this.state.collapsed}>
+                    trigger={null}
+                    collapsed={this.state.collapsed}>
                     <div className="logo">
-                        Web
+                        {!collapsed ? 'WebAdmin':'Web'}
                     </div>
                     <Menu theme="dark"
                           mode="inline"
