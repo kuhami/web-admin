@@ -7,34 +7,34 @@
     },
     {
       "text": "组织管理",
-      "icon": "user",
+      "icon": "bars",
       "path": "sub1",
       "childen": [
         {
         "text": "Index",
-        "icon": "edit",
+        "icon": "setting",
         "path": "/index"
         },
         {
           "text": "二级",
-          "icon": "edit",
+          "icon": "pushpin",
           "path": "sub2",
           "childen": [
             {
               "text": "三级",
-              "icon": "eye",
+              "icon": "rocket",
               "path": "/index2"
             }
           ]
         },
         {
-          "text": "二级1",
-          "icon": "edit",
+          "text": "读物",
+          "icon": "read",
           "path": "sub3",
           "childen": [
             {
-              "text": "三级1",
-              "icon": "eye",
+              "text": "无路由",
+              "icon": "schedule",
               "path": "/index3"
             }
           ]
@@ -43,12 +43,12 @@
     },
     {
       "text": "层级管理",
-      "icon": "user",
+      "icon": "project",
       "path": "sub4",
       "childen": [
         {
           "text": "NAV",
-          "icon": "nav",
+          "icon": "block",
           "path": "/nav"
         }
       ]
