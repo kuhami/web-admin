@@ -54,6 +54,7 @@ export default class App extends Component {
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
+            openKeys:[]
         });
     };
     onOpenChange = (openKeys) =>{
@@ -80,14 +81,14 @@ export default class App extends Component {
                 return (
                     <Menu.SubMenu key={v.path}
                                   title={<span><Icon type={v.icon} />
-                                  <span>{ v.text }</span>
+                                  <span title={v.text}>{ v.text }</span>
                                   </span>}>
                         {this.getMenuList(v.childen)}
                     </Menu.SubMenu>
                 )
             }
             return (<Menu.Item key={v.path}>
-                <Link to={v.path}>
+                <Link to={v.path} title={v.text}>
                     <Icon type={v.icon} />
                     <span>{v.text}</span>
                 </Link>
@@ -97,7 +98,7 @@ export default class App extends Component {
 
     }
     render() {
-        const {defaultSelectedKeys,component, DataList, openKeys} = this.state;
+        const {defaultSelectedKeys,collapsed, DataList, openKeys} = this.state;
         return (
             <Layout className={'layout'}>
                 <Sider
