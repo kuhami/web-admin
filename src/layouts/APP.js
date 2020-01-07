@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Layout, Menu, Icon} from "antd";
 import { Link, browserHistory  } from 'react-router'
+import Breadcrumbs from "../components/Breadcrumbs";
+
 import DataList from '../../config/dataList'
 import Home from "../routes/home";
 import '../styles.css';
@@ -17,31 +19,34 @@ export default class App extends Component {
             collapsed: false,
             pathname,
             component,
-            defaultSelectedKeys:[pathname],
             DataList:DataList.tabs,
             openKeys: [],
+            textArr:[],
             rootSubmenuKeys:[]
         };
     }
 
     componentDidMount() {
         const {pathname,DataList} = this.state;
-        const openKeys = this.parentPath(DataList, pathname);
+        const openKeys = this.parentPath(DataList, pathname,'','openKeys');
+        const textArr = this.parentPath(DataList, pathname,'','text');
         const rootSubmenuKeys = DataList.map((v)=>v.path);
         this.setState({
             openKeys,
+            textArr,
             rootSubmenuKeys
         })
     }
 
     //通过路由找到父级菜单path
-    parentPath = (DataList,pathname,parentPatn='/') =>{
-        let parent = [];
+    parentPath = (DataList,pathname,parentPatn='/',name) =>{
+        let parent = [],textArr = [];
         const self = this;
         const getData = (DataList,pathname,parentPatn) =>{
             DataList.forEach((v)=>{
                 if(v.path === pathname){
                     parent.push(parentPatn);
+                    textArr.push(v.text);
                     getData(self.state.DataList, parentPatn,'');
                 }else if(v.childen && v.childen.length){
                     getData(v.childen,pathname,v.path);
@@ -49,7 +54,7 @@ export default class App extends Component {
             })
         };
         getData(DataList, pathname, parentPatn);
-        return parent;
+        return name === 'openKeys' ? parent:textArr;
     };
 
     //判断key 是否存在
@@ -88,9 +93,8 @@ export default class App extends Component {
     }
 
     handleClick = (e) =>{
-        const {key} = e;
-        const {DataList} = this.state;
-        //const isKey = this.isKey(DataList,key);
+        const { key } = e;
+
         browserHistory.push(`#${key}`)
     }
 
@@ -117,7 +121,9 @@ export default class App extends Component {
 
     }
     render() {
-        const {defaultSelectedKeys,collapsed, DataList, openKeys} = this.state;
+        const { collapsed, DataList, openKeys } = this.state;
+        const { pathname } = this.props.location;
+        const textArr = this.parentPath(DataList, pathname,'','text');
         return (
             <Layout className={'layout'}>
                 <Sider
@@ -128,7 +134,7 @@ export default class App extends Component {
                     </div>
                     <Menu theme="dark"
                           mode="inline"
-                          defaultSelectedKeys={defaultSelectedKeys}
+                          selectedKeys={[pathname]}
                           openKeys={openKeys}
                           onOpenChange={this.onOpenChange}
                           onClick={this.handleClick}
@@ -137,17 +143,26 @@ export default class App extends Component {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{ background: '#fff', padding: 0 }}>
+                    <Header style={{
+                        background: '#fff',
+                        padding: 0,
+                        position:'fixed',
+                        transition:'0.2s',
+                        left: !collapsed ? '200px':'80px',
+                        top:'0px',
+                        right:'0px'
+                    }}>
                         <Icon
                             className="trigger"
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle}
                         />
                     </Header>
+                    <Breadcrumbs textArr={textArr}/>
                     <Content
                         style={{
-                            margin: '24px 16px',
-                            padding: 24,
+                            margin: '2px 16px 0px 16px',
+                            padding: 14,
                             background: '#fff',
                             minHeight: 280,
                         }}
