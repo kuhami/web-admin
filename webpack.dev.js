@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = merge(common, {
@@ -37,6 +38,10 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename:'styles.css',
+            allChunks:true,
+        }),
         new HtmlWebpackPlugin({
             title: '管理输出',
             filename: 'index.html',
@@ -46,13 +51,12 @@ module.exports = merge(common, {
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
-        headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: './dist',
         hot: true,
         port: 9000,
         proxy:{
-            '/':{
-                target:'http://192.168.33.30:84',
+            '/api':{
+                target:'http://192.168.33.30:84/',
             }
         }
     }
