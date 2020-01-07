@@ -50,7 +50,25 @@ export default class App extends Component {
         };
         getData(DataList, pathname, parentPatn);
         return parent;
-    }
+    };
+
+    //判断key 是否存在
+    isKey = (DataList,key) =>{
+        let isKey = [];
+        const self = this;
+        const getData = (DataList,key) =>{
+            DataList.forEach((v)=>{
+                if(v.path === key){
+                    isKey.push(key);
+                }else if(v.childen && v.childen.length){
+                    getData(v.childen,key);
+                }
+            })
+        };
+        getData(DataList, key);
+        return isKey;
+    };
+
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
@@ -71,7 +89,8 @@ export default class App extends Component {
 
     handleClick = (e) =>{
         const {key} = e;
-
+        const {DataList} = this.state;
+        //const isKey = this.isKey(DataList,key);
         browserHistory.push(`#${key}`)
     }
 
@@ -133,7 +152,7 @@ export default class App extends Component {
                             minHeight: 280,
                         }}
                     >
-                        {this.props.children ? this.props.children:'没有找到路由'}
+                        {this.props.children ? this.props.children: <Home/>}
                     </Content>
                 </Layout>
             </Layout>

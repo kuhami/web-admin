@@ -81,6 +81,6 @@ module.exports = {
         contentBase: './dist',
         hot: true,
         overlay: true,
-        stats: "errors-only"
+        stats: 'none'
     }
 };
