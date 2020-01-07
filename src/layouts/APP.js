@@ -147,6 +147,7 @@ export default class App extends Component {
                         background: '#fff',
                         padding: 0,
                         position:'fixed',
+                        transition:'0.2s',
                         left: !collapsed ? '200px':'80px',
                         top:'0px',
                         right:'0px'
