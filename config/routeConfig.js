@@ -3,7 +3,7 @@ import Index from "../src/routes/index";
 import Index2 from "../src/routes/index2";
 import Home from "../src/routes/home";
 import Nav from "../src/routes/nav";
-import noPages from "../src/routes/noPages";
+import noPages from "../src/routes/NoPages";
 const routeConfig = [
     {   path: '/',
         component: App,
