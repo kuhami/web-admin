@@ -19,7 +19,6 @@ export default class App extends Component {
             collapsed: false,
             pathname,
             component,
-            defaultSelectedKeys:[pathname],
             DataList:DataList.tabs,
             openKeys: [],
             textArr:[],
@@ -95,13 +94,7 @@ export default class App extends Component {
 
     handleClick = (e) =>{
         const { key } = e;
-        const { DataList } = this.state;
-        const textArr = this.parentPath(DataList, key,'','text');
-        this.setState({
-            textArr
-        })
 
-        //const isKey = this.isKey(DataList,key);
         browserHistory.push(`#${key}`)
     }
 
@@ -128,7 +121,9 @@ export default class App extends Component {
 
     }
     render() {
-        const {defaultSelectedKeys,collapsed, DataList, openKeys, textArr} = this.state;
+        const { collapsed, DataList, openKeys } = this.state;
+        const { pathname } = this.props.location;
+        const textArr = this.parentPath(DataList, pathname,'','text');
         return (
             <Layout className={'layout'}>
                 <Sider
@@ -139,7 +134,7 @@ export default class App extends Component {
                     </div>
                     <Menu theme="dark"
                           mode="inline"
-                          defaultSelectedKeys={defaultSelectedKeys}
+                          selectedKeys={[pathname]}
                           openKeys={openKeys}
                           onOpenChange={this.onOpenChange}
                           onClick={this.handleClick}

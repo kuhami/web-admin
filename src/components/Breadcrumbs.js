@@ -21,7 +21,7 @@ export default class Breadcrumbs extends Component {
                 }}
                 separator="/">
                 {breadcrumb.length !== 0 && breadcrumb.length !== 1 && <Breadcrumb.Item key='home' href='#/home'>首页</Breadcrumb.Item>}
-                {breadcrumb.map((v,index)=>{
+                {breadcrumb.length !== 1 && breadcrumb.map((v,index)=>{
                     return <Breadcrumb.Item key={index}>{ v }</Breadcrumb.Item>
                 })}
             </Breadcrumb>
