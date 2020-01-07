@@ -33,9 +33,9 @@
           "path": "sub3",
           "childen": [
             {
-              "text": "无路由",
-              "icon": "schedule",
-              "path": "/index3"
+              "text": "404",
+              "icon": "file-unknown",
+              "path": "/404"
             }
           ]
         }
