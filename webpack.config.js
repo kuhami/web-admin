@@ -79,8 +79,6 @@ module.exports = {
     devServer: {
         headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: './dist',
-        hot: true,
-        overlay: true,
-        stats: 'none'
+        hot: true
     }
 };
