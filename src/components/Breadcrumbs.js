@@ -13,10 +13,7 @@ export default class Breadcrumbs extends Component {
 
     render() {
         const { textArr } = this.props;
-        const breadcrumb = textArr.map((v,index)=>{
-            return textArr[textArr.length - index-1]
-        })
-        console.log(breadcrumb);
+        const breadcrumb = textArr.map((v,index)=>textArr[textArr.length - index-1]);
         return (
             <Breadcrumb
                 style={{
