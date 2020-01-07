@@ -2,6 +2,7 @@ const express = require('express');
 const proxy = require('express-http-proxy');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const app = express();
 const config = require('./webpack.config.js');
@@ -15,6 +16,7 @@ app.use('/api', proxy('192.168.33.30:84', {
     //     return require('url').parse(req.url).path;
     // }
 }));
+app.use(webpackHotMiddleware(compiler));
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
 app.use(webpackDevMiddleware(compiler, {

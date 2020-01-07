@@ -12,7 +12,10 @@ module.exports = {
     devtool: 'source-map',
     mode: "development",
     entry: {
-        app: path.join(__dirname, './src/index.js')
+        app: [
+            'webpack-hot-middleware/client?reload=true',// 添加热更新必须添加参数reload=true
+            path.join(__dirname, './src/index.js')
+        ]
     },
     output: {
         filename: 'js.[name].js',
@@ -79,6 +82,15 @@ module.exports = {
     devServer: {
         headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: './dist',
-        hot: true
+        hot: true,
+        colors: true,
+
+        modules: false,
+
+        children: false,
+
+        chunks: false,
+
+        chunkModules: false
     }
 };
