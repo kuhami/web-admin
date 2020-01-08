@@ -22,5 +22,5 @@
 $ git clone https://github.com/kuhami/web-admin.git
 $ cd web-admin
 $ npm install
-$ npm run start         # 访问 http://localhost:8080
+$ npm run start         # 访问 http://localhost:9000
 ```
