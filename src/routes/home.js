@@ -8,6 +8,7 @@ export default class Home extends Component {
         super(props);
 
         this.state = {
+            icons:'success',
             loading:true
         }
     }
@@ -22,22 +23,25 @@ export default class Home extends Component {
         postInner('/api/v1/systems/userinfo').then((data)=>{
             console.log(data)
             this.setState({
-                loading:false
+                loading:false,
+                icons:'success'
             })
         }).catch(err => {
             message.error('404 Not Found')
             this.setState({
-                loading:false
+                loading:false,
+                icons:'error'
             })
         })
 
     }
 
     render() {
+        console.log(this.state.icons);
         return (
             <Spin spinning={this.state.loading}>
                 <Result
-                    icon={<Icon type="smile" theme="twoTone" />}
+                    status={this.state.icons}
                     title="欢迎使用WebAdmin!"
                     extra={<Button
                         type="primary">

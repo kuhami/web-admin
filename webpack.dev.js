@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const path = require('path');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -51,7 +52,8 @@ module.exports = merge(common, {
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
-        contentBase: './dist',
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        contentBase: path.resolve(__dirname, 'dist'),
         hot: true,
         port: 9000,
         proxy:{
