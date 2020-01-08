@@ -5,8 +5,22 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin'); //
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
+const program = require('commander');
+const colors = require('colors');
 
-console.log('-------------------配置信息------------------');
+
+program
+    .version('0.0.1')
+    .option('--env <env>', 'package enviroment')
+    .option('--path <path>', 'project path')
+
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+console.log('-------------------配置信息------------------'.grey);
+console.log('Web项目目录 \t: '.green + program.path);
+console.log('__dirname \t: '.green + __dirname);
+console.log('静态资源路径 \t: '.green + path.resolve('./'));
+console.log('公共路径 \t: '.green + ASSET_PATH);
+
 
 module.exports = {
     devtool: 'source-map',
@@ -83,14 +97,6 @@ module.exports = {
         headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: './dist',
         hot: true,
-        colors: true,
-
-        modules: false,
-
-        children: false,
-
-        chunks: false,
-
-        chunkModules: false
+        colors: true
     }
 };
