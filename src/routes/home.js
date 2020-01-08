@@ -37,7 +37,6 @@ export default class Home extends Component {
     }
 
     render() {
-        console.log(this.state.icons);
         return (
             <Spin spinning={this.state.loading}>
                 <Result

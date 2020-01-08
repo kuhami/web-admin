@@ -56,9 +56,12 @@ module.exports = merge(common, {
         contentBase: path.resolve(__dirname, 'dist'),
         hot: true,
         port: 9000,
-        proxy:{
-            '/api':{
-                target:'http://192.168.33.30:84/',
+        openPage: '#/home',
+        stats: 'errors-only',
+        proxy: {
+            "/api": {
+                target: "http://192.168.33.30:84",
+                pathRewrite: {"^/api" : ""}
             }
         }
     }
