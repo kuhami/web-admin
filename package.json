@@ -11,7 +11,7 @@
     "buildtest": "webpack --config webpack.config.js",
     "build": "webpack --config webpack.prod.js"
   },
-  "author": "",
+  "author": "liuyalei",
   "license": "ISC",
   "dependencies": {
     "antd": "^3.26.5",
