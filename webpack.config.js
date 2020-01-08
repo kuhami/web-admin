@@ -20,7 +20,7 @@ console.log('Web项目目录 \t: '.green + program.path);
 console.log('__dirname \t: '.green + __dirname);
 console.log('静态资源路径 \t: '.green + path.resolve('./'));
 console.log('公共路径 \t: '.green + ASSET_PATH);
-
+console.log('环境 \t: '.green + process.env.NODE_ENV);
 
 module.exports = {
     devtool: 'source-map',
@@ -69,18 +69,23 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new FriendlyErrorsWebpackPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('development')
+            },
+            '__DEVTOOLS__': true
+        }),
         new ExtractTextPlugin({
             filename:'styles.css',
             allChunks:true,
         }),
         new HtmlWebpackPlugin({
             title: '管理输出',
-            filename: 'index.html',
-            template: 'index.html',
+            template: 'index.html'
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new FriendlyErrorsWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
     optimization: {
         minimizer: [
@@ -93,10 +98,11 @@ module.exports = {
     performance:{
         hints: false
     },
-    devServer: {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        contentBase: './dist',
-        hot: true,
-        colors: true
-    }
+    // devServer: {
+    //     headers: { 'Access-Control-Allow-Origin': '*' },
+    //     contentBase: './dist',
+    //     hot: true,
+    //     colors: true,
+    //     overlay: true
+    // }
 };
