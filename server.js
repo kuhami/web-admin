@@ -20,8 +20,6 @@ app.use(webpackHotMiddleware(compiler));
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
 app.use(webpackDevMiddleware(compiler, {
-    quiet: true, //关闭错误记录
-    noInfo: true,
     stats: 'errors-only',
     publicPath: config.output.publicPath
 }));

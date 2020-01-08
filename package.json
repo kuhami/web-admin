@@ -8,7 +8,8 @@
     "server": "node server.js",
     "start": "webpack-dev-server --open --colors --config webpack.dev.js",
     "watch": "webpack --watch",
-    "buildtest": "webpack --config webpack.config.js",
+    "buildnode": "webpack --config webpack.config.js",
+    "builddev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "author": "liuyalei",
