@@ -9,6 +9,11 @@ const webpack = require('webpack');
 // 包大小分析插件
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
+const extractLess = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = merge(common, {
     devtool: 'inline-source-map',
     mode: "development",
@@ -23,19 +28,20 @@ module.exports = merge(common, {
                 test: /\.css$/,
                 // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
-                    fallback:'style-loader',
-                    use:'css-loader'
+                    use:'css-loader',
+                    fallback:'style-loader'
                 })
             },
             {
                 test: /\.less$/,
-                use: [{
-                    loader: 'style-loader' // creates style nodes from JS strings
-                }, {
-                    loader: 'css-loader' // translates CSS into CommonJS
-                }, {
-                    loader: 'less-loader' // compiles Less to CSS
-                }]
+                use:ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "less-loader"
+                    }],
+                    fallback: "style-loader"
+                }),
             },
             {
                 test: /\.(bmp|gif|jpeg|jpg|png)$/,
@@ -52,6 +58,7 @@ module.exports = merge(common, {
         new ExtractTextPlugin({
             filename:'styles.css',
             allChunks:true,
+            disable: process.env.NODE_ENV === "development"
         }),
         new HtmlWebpackPlugin({
             title: '管理输出',
