@@ -53,8 +53,14 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                exclude: /\.module\.less$/,
-                loader: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'less-loader']),
+                use:ExtractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "less-loader"
+                    }],
+                    fallback: "style-loader"
+                }),
             },
             {
                 test: /\.(bmp|gif|jpeg|jpg|png)$/,
