@@ -12,6 +12,7 @@ ReactDOM.render(
     document.getElementById('app')
 );
 
-if (module.hot) {
+
+if (module.hot && process.env.NODE_ENV === 'development') {
     console.log('hot!!!!!!');
 }
