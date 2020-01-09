@@ -1,7 +1,7 @@
 {
   "name": "web-admin",
   "version": "1.0.0",
-  "description": "",
+  "description": "开箱即用的中台前端/设计解决方案.",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
