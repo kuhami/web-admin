@@ -69,6 +69,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
         new FriendlyErrorsWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env': {

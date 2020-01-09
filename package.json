@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server.js",
-    "start": "webpack-dev-server --open --colors --config webpack.dev.js",
+    "start": "webpack-dev-server --colors --config webpack.dev.js",
     "watch": "webpack --watch",
     "buildnode": "webpack --config webpack.config.js",
     "builddev": "webpack --config webpack.dev.js",
@@ -44,6 +44,7 @@
     "file-loader": "^5.0.2",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "postcss-loader": "^3.0.0",
     "react-page-layout": "^0.9.8",
