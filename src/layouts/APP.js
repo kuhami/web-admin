@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Layout, Menu, Icon} from "antd";
+import {Layout, Menu, Icon, Dropdown } from "antd";
 import { Link, browserHistory  } from 'react-router'
 import Breadcrumbs from "../components/Breadcrumbs";
 
@@ -31,10 +31,15 @@ export default class App extends Component {
         const openKeys = this.parentPath(DataList, pathname,'','openKeys');
         const textArr = this.parentPath(DataList, pathname,'','text');
         const rootSubmenuKeys = DataList.map((v)=>v.path);
+        const userInfo = localStorage.getItem('userInfo');
+        if(userInfo !== 'admin'){
+            window.location = '#/login';
+        }
         this.setState({
             openKeys,
             textArr,
-            rootSubmenuKeys
+            rootSubmenuKeys,
+            userInfo
         })
     }
 
@@ -120,10 +125,29 @@ export default class App extends Component {
 
 
     }
+
+    handleMenuClick = (e) =>{
+        const {key} = e;
+        if(key === '1'){
+            localStorage.clear();
+            setTimeout(()=>{
+                window.location = '#/login'
+            },1000)
+        }
+    }
+
     render() {
         const { collapsed, DataList, openKeys } = this.state;
         const { pathname } = this.props.location;
         const textArr = this.parentPath(DataList, pathname,'','text');
+
+        const menu = (
+            <Menu onClick={this.handleMenuClick}>
+                <Menu.Item key="1">
+                   <Icon type="play-circle" style={{fontSize:'14px'}}/><span style={{marginLeft:'6px'}}>退出</span>
+                </Menu.Item>
+            </Menu>
+        );
         return (
             <Layout className={'layout'}>
                 <Sider
@@ -150,13 +174,21 @@ export default class App extends Component {
                         transition:'0.2s',
                         left: !collapsed ? '200px':'80px',
                         top:'0px',
-                        right:'0px'
+                        right:'0px',
+                        zIndex:2
                     }}>
                         <Icon
                             className="trigger"
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle}
                         />
+                        <div className="header-right">
+                            <Dropdown overlay={menu}>
+                                <a className="ant-dropdown-link" href="#">
+                                    {this.state.userInfo} <Icon type="down" />
+                                </a>
+                            </Dropdown>
+                        </div>
                     </Header>
                     <Breadcrumbs textArr={textArr}/>
                     <Content

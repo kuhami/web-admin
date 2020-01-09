@@ -14,7 +14,6 @@ class Login extends React.Component {
     }
     componentDidMount() {
         const user = localStorage.getItem('userInfo');
-        console.log(user);
         if(user === 'admin'){
             window.location = '#/home';
         }

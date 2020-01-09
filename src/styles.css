@@ -19,7 +19,13 @@
 .ant-layout-header .trigger:hover {
     color: #1890ff;
 }
-
+.ant-layout-header .header-right{
+    width: 100px;
+    float: right;
+}
+.ant-layout-header .ant-dropdown-link{
+    font-size: 18px;
+}
 .ant-layout-sider-children .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.2);
