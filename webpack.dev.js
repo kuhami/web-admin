@@ -3,10 +3,15 @@ const path = require('path');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
+// 包大小分析插件
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
+    mode: "development",
     module: {
         rules: [
             {
@@ -24,8 +29,13 @@ module.exports = merge(common, {
             },
             {
                 test: /\.less$/,
-                exclude: /\.module\.less$/,
-                loader: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'less-loader']),
+                use: [{
+                    loader: 'style-loader' // creates style nodes from JS strings
+                }, {
+                    loader: 'css-loader' // translates CSS into CommonJS
+                }, {
+                    loader: 'less-loader' // compiles Less to CSS
+                }]
             },
             {
                 test: /\.(bmp|gif|jpeg|jpg|png)$/,
@@ -49,12 +59,23 @@ module.exports = merge(common, {
             template: 'index.html',
         }),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new FriendlyErrorsWebpackPlugin(),
+        //new BundleAnalyzerPlugin()
     ],
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                parallel: true,
+                cache: true,
+            }),
+        ]
+    },
     devServer: {
         headers: { 'Access-Control-Allow-Origin': '*' },
         contentBase: path.resolve(__dirname, 'dist'),
         hot: true,
+        open: true,
         port: 9000,
         openPage: '#/home',
         stats: 'errors-only',
