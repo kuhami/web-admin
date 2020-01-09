@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Form, Icon, Input, Button, Checkbox ,message,Spin} from 'antd';
 import { browserHistory  } from 'react-router'
-require('login.less');
+require('./login.less');
 
 
 class Login extends React.Component {
