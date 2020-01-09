@@ -6,6 +6,7 @@
 
 开箱即用的中台前端/设计解决方案。
 
+![](https://raw.githubusercontent.com/kuhami/web-admin/master/src/image/Webadmin01.png)
 ![](https://raw.githubusercontent.com/kuhami/web-admin/master/src/image/Webadmin.png)
 
 </div>
