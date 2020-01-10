@@ -9,11 +9,6 @@ const webpack = require('webpack');
 // 包大小分析插件
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-const extractLess = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
-
 module.exports = merge(common, {
     devtool: 'inline-source-map',
     mode: "development",
