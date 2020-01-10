@@ -1,13 +1,29 @@
 const merge = require('webpack-merge');
+const webpack = require('webpack');
+const program = require('commander');
 const path = require('path');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const webpack = require('webpack');
+
 // 包大小分析插件
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+require('colors');
+
+program
+    .version('0.0.1')
+    .option('--env <env>', 'package enviroment')
+    .option('--path <path>', 'project path')
+    .option('--project <project>', 'project')
+
+console.log('-------------------配置信息------------------'.grey);
+
+console.log('Web项目目录 \t: '.green + program.path)
+console.log('静态资源路径 \t: '.green + path.resolve('./'));
+console.log('环境 \t: '.green + program.env);
+
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
@@ -29,6 +45,7 @@ module.exports = merge(common, {
             },
             {
                 test: /\.less$/,
+                exclude: /node_modules/,
                 use:ExtractTextPlugin.extract({
                     use: [{
                         loader: "css-loader"
