@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server.js",
-    "start": "webpack-dev-server --colors --config webpack.dev.js",
+    "start": "webpack-dev-server --colors --env=dev --config webpack.dev.js",
     "watch": "webpack --watch",
     "buildnode": "webpack --config webpack.config.js",
     "builddev": "webpack --config webpack.dev.js",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "babel-cli": "^6.26.0",
