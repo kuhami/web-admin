@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
+    mode: "production",
     module: {
         rules: [
             {
