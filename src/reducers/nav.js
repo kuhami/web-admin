@@ -4,10 +4,11 @@
  * @param action
  * @returns {*}
  */
-export function home(state = [], action) {
+export function nav(state = [], action) {
     const { type, error } = action
-    if (type === 'USERINFO_SUCCESS') {
-        return action.response
+
+    if (type === 'err') {
+        return null
     } else if (error) {
         return error
     }

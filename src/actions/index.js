@@ -1,9 +1,8 @@
 import { CALL_API } from '../middleware/api'
-import {assignRouterState} from "react-router/lib/RouterUtils";
+
 /**
  * 请求当前页初始化数据
  * @param options
- * @param api_uri
  * @returns {{}}
  */
 export const USERINFO_REQUEST = 'USERINFO_REQUEST'
@@ -23,7 +22,6 @@ const fetch = options => {
 }
 
 export const postInner = (options) => {
-    console.log('actions0-0-0-0-',options)
     return (dispatch, getState) => {
         return dispatch(fetch(options))
     }

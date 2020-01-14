@@ -7,7 +7,6 @@ if(process.env.NODE_ENV === 'development'){
 // 使用fetch调用erp restful api接口
 const callApi = (endpoint,req={}) => {
     const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
-    console.log(fullUrl);
     const fetchConfig = {
         method: 'POST',
         headers: {

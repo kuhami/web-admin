@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import { Result, Icon, Button, message ,Spin } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { postInner } from "../../actions";
 
-import {postInner} from '../../untils/axios'
+//import {postInner} from '../../untils/axios'
 
 class Home extends Component {
     constructor(props) {
@@ -15,28 +16,36 @@ class Home extends Component {
         }
     }
     componentDidMount() {
-        console.log(this)
-        this.userInfo()
-
-    }
-
-    userInfo = () =>{
-
-        postInner('/api/v1/systems/userinfo').then((data)=>{
+        const self = this;
+        this.props.postInner({
+            url:'api/v1/systems/userinfo'
+        }).then((data)=>{
             console.log(data)
-            this.setState({
-                loading:false,
-                icons:'success'
+            self.setState({
+                loading:false
             })
         }).catch(err => {
-            message.error('404 Not Found')
-            this.setState({
-                loading:false,
-                icons:'error'
-            })
+            console.log(err)
         })
-
     }
+
+    // userInfo = () =>{
+    //     const self = this;
+    //     postInner('/api/v1/systems/userinfo').then((data)=>{
+    //         console.log(data)
+    //         self.setState({
+    //             loading:false,
+    //             icons:'success'
+    //         })
+    //     }).catch(err => {
+    //         message.error('404 Not Found')
+    //         self.setState({
+    //             loading:false,
+    //             icons:'error'
+    //         })
+    //     })
+    //
+    // }
 
     render() {
         return (
@@ -54,9 +63,11 @@ class Home extends Component {
     }
 }
 const mapStateToProps = (state, ownProps) =>{
-    console.log(state, ownProps);
+    console.log(state,ownProps)
     return {
         home:state.home
     }
 }
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps,{
+    postInner
+})(Home)
