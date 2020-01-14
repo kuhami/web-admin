@@ -1,69 +1,37 @@
-import { normalize, schema } from 'normalizr'
-import { camelizeKeys } from 'humps'
-
-// Extracts the next page URL from Github API response.
-const getNextPageUrl = response => {
-    const link = response.headers.get('link')
-    if (!link) {
-        return null
-    }
-
-    const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-    if (!nextLink) {
-        return null
-    }
-
-    return nextLink.trim().split(';')[0].slice(1, -1)
+//环境配置
+let API_ROOT = 'https://api.github.com/'
+if(process.env.NODE_ENV === 'development'){
+     API_ROOT = 'http://localhost:9000/'
 }
 
-const API_ROOT = 'https://api.github.com/'
-console.log(API_ROOT);
-// Fetches an API response and normalizes the result JSON according to schema.
-// This makes every API response have the same shape, regardless of how nested it was.
-const callApi = (endpoint, schema) => {
+// 使用fetch调用erp restful api接口
+const callApi = (endpoint,req={}) => {
     const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
-
-    return fetch(fullUrl)
-        .then(response =>
-            response.json().then(json => {
+    console.log(fullUrl);
+    const fetchConfig = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(req)
+    };
+    return fetch(fullUrl,fetchConfig)
+        .then(response => response.json()
+            .then(json => {
                 if (!response.ok) {
                     return Promise.reject(json)
                 }
-
-                const camelizedJson = camelizeKeys(json)
-                const nextPageUrl = getNextPageUrl(response)
-
                 return Object.assign({},
-                    normalize(camelizedJson, schema),
-                    { nextPageUrl }
-                )
+                    {...json}
+                    )
             })
         )
 }
 
-const userSchema = new schema.Entity('users', {}, {
-    idAttribute: user => user.login.toLowerCase()
-})
-
-const repoSchema = new schema.Entity('repos', {
-    owner: userSchema
-}, {
-    idAttribute: repo => repo.fullName.toLowerCase()
-})
-
-// Schemas for Github API responses.
-export const Schemas = {
-    USER: userSchema,
-    USER_ARRAY: [userSchema],
-    REPO: repoSchema,
-    REPO_ARRAY: [repoSchema]
-}
-
-// Action key that carries API call info interpreted by this Redux middleware.
+// 定义action键值,用来标识api请求的action
 export const CALL_API = 'Call API'
 
-// A Redux middleware that interprets actions with CALL_API info specified.
-// Performs the call and promises when such actions are dispatched.
+// 一个Redux中间件，它使用指定的CALL_API信息来解释操作
 export default store => next => action => {
     const callAPI = action[CALL_API]
     if (typeof callAPI === 'undefined') {
@@ -71,7 +39,7 @@ export default store => next => action => {
     }
 
     let { endpoint } = callAPI
-    const { schema, types } = callAPI
+    const { types } = callAPI
 
     if (typeof endpoint === 'function') {
         endpoint = endpoint(store.getState())
@@ -79,9 +47,6 @@ export default store => next => action => {
 
     if (typeof endpoint !== 'string') {
         throw new Error('Specify a string endpoint URL.')
-    }
-    if (!schema) {
-        throw new Error('Specify one of the exported Schemas.')
     }
     if (!Array.isArray(types) || types.length !== 3) {
         throw new Error('Expected an array of three action types.')
@@ -99,7 +64,7 @@ export default store => next => action => {
     const [ requestType, successType, failureType ] = types
     next(actionWith({ type: requestType }))
 
-    return callApi(endpoint, schema).then(
+    return callApi(endpoint).then(
         response => next(actionWith({
             response,
             type: successType
