@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import { Result, Icon, Button, message ,Spin } from 'antd';
-import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import {postInner} from '../untils/axios'
+import {postInner} from '../../untils/axios'
 
 class Home extends Component {
     constructor(props) {
@@ -52,5 +53,10 @@ class Home extends Component {
         );
     }
 }
-
-export default Home
+const mapStateToProps = (state, ownProps) =>{
+    console.log(state, ownProps);
+    return {
+        home:state.home
+    }
+}
+export default connect(mapStateToProps)(Home)
