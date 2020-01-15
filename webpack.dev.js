@@ -97,6 +97,7 @@ module.exports = merge(common, {
         open: true,
         port: 9000,
         openPage: '#/home',
+        overlay: true,
         stats: 'errors-only',
         proxy: {
             "/api": {
