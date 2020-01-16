@@ -29,17 +29,18 @@ class SiderBar extends Component {
             rootSubmenuKeys
         })
     }
-    componentWillReceiveProps(nextProps){
+    static getDerivedStateFromProps(nextProps, state){
         const nextcollapsed = nextProps.collapsed;
-        const collapsed = this.state.collapsed;
-        if(!ImmutableCompare(Immutable.fromJS(nextcollapsed,Immutable.fromJS(collapsed)))){
-            this.setState({
+        const collapsed = state.collapsed;
+        if(!ImmutableCompare(Immutable.fromJS(nextcollapsed),Immutable.fromJS(collapsed))){
+            return {
                 collapsed:nextcollapsed,
                 openKeys:[]
-            })
+            }
         }
-
+        return null
     }
+
     onOpenChange = (openKeys) =>{
         const {rootSubmenuKeys} = this.state;
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
