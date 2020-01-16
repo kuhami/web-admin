@@ -1,9 +1,15 @@
 <!doctype html>
 <html>
 <head>
-    <title>WebAdmin</title>
+    <% var config = htmlWebpackPlugin.options %>
+    <title><%= config.title %></title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <% if(true) {%>
     <link rel="icon" type="image/x-icon" href="https://avatars2.githubusercontent.com/u/25144311?s=400&u=4423d9b936755b4105050353497559a228582e35&v=4">
+    <% } else { %>
+    <link rel="icon" type="image/x-icon" href="./image/favicon.png" />
+    <% } %>
 </head>
 <body>
 <div id="app"></div>
