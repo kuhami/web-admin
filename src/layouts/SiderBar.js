@@ -4,6 +4,8 @@ import {Menu, Layout, Icon} from 'antd';
 import {browserHistory, Link} from "react-router";
 import DataList from '../../config/dataList'
 import ImmutableCompare from "../untils/ImmutableCompare"
+import iconBar from '../image/favicon.png'
+
 const { Header, Sider, Content } = Layout;
 
 class SiderBar extends Component {
@@ -92,7 +94,7 @@ class SiderBar extends Component {
                 trigger={null}
                 collapsed={this.state.collapsed}>
                 <div className="logo">
-                    {!collapsed ? 'WebAdmin':'Web'}
+                    {!collapsed ? 'WebAdmin': <img style={{width:'35px'}} src={iconBar} alt="Web"/>}
                 </div>
                 <Menu theme="dark"
                       mode="inline"
