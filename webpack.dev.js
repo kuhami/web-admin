@@ -17,12 +17,15 @@ program
     .option('--env <env>', 'package enviroment')
     .option('--path <path>', 'project path')
     .option('--project <project>', 'project')
+    .option('--colors')
+    .option('--config')
+    .parse(process.argv)
 
 console.log('-------------------配置信息------------------'.grey);
 
-console.log('Web项目目录 \t: '.green + program.path)
-console.log('静态资源路径 \t: '.green + path.resolve('./'));
-console.log('环境 \t: '.green + program.env);
+console.log('Web项目目录 \t: '.green + path.resolve('./'))
+console.log('编译环境 \t: '.green + program.env);
+console.log('项目名称 \t: '.green + program.project);
 
 
 module.exports = merge(common, {
@@ -73,7 +76,7 @@ module.exports = merge(common, {
             disable: process.env.NODE_ENV === "development"
         }),
         new HtmlWebpackPlugin({
-            title: '管理输出',
+            title: 'WebAdmin',
             filename: 'index.html',
             template: 'index.html',
         }),
