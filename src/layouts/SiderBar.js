@@ -81,8 +81,6 @@ class SiderBar extends Component {
                 </Link>
             </Menu.Item>)
         })
-
-
     }
 
     render() {
@@ -90,6 +88,7 @@ class SiderBar extends Component {
 
         return (
             <Sider
+                style={{overflow:'auto',height:'calc(100%)'}}
                 trigger={null}
                 collapsed={this.state.collapsed}>
                 <div className="logo">

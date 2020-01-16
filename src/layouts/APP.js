@@ -81,29 +81,6 @@ export default class App extends Component {
         });
     };
 
-    getMenuList = (DataList)=> {
-        return DataList.map((v)=>{
-            if(v.childen && v.childen.length){
-                return (
-                    <Menu.SubMenu key={v.path}
-                                  title={<span><Icon type={v.icon} />
-                                  <span title={v.text}>{ v.text }</span>
-                                  </span>}>
-                        {this.getMenuList(v.childen)}
-                    </Menu.SubMenu>
-                )
-            }
-            return (<Menu.Item key={v.path}>
-                <Link to={v.path} title={v.text}>
-                    <Icon type={v.icon} />
-                    <span>{v.text}</span>
-                </Link>
-            </Menu.Item>)
-        })
-
-
-    }
-
     handleMenuClick = (e) =>{
         const {key} = e;
         if(key === '1'){
