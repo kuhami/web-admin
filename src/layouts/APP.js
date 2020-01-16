@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Layout, Menu, Icon, Dropdown } from "antd";
 import { Link, browserHistory  } from 'react-router'
 import Breadcrumbs from "../components/Breadcrumbs";
+import SliderBar from "./SiderBar"
 
 import DataList from '../../config/dataList'
 import Home from "../routes/home";
@@ -22,23 +23,18 @@ export default class App extends Component {
             DataList:DataList.tabs,
             openKeys: [],
             textArr:[],
-            rootSubmenuKeys:[]
         };
     }
 
     componentDidMount() {
         const {pathname,DataList} = this.state;
-        const openKeys = this.parentPath(DataList, pathname,'','openKeys');
         const textArr = this.parentPath(DataList, pathname,'','text');
-        const rootSubmenuKeys = DataList.map((v)=>v.path);
         const userInfo = localStorage.getItem('userInfo');
         if(userInfo !== 'admin'){
             window.location = '#/login';
         }
         this.setState({
-            openKeys,
             textArr,
-            rootSubmenuKeys,
             userInfo
         })
     }
@@ -81,27 +77,9 @@ export default class App extends Component {
 
     toggle = () => {
         this.setState({
-            collapsed: !this.state.collapsed,
-            openKeys:[]
+            collapsed: !this.state.collapsed
         });
     };
-    onOpenChange = (openKeys) =>{
-        const {rootSubmenuKeys} = this.state;
-        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-        if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-            this.setState({ openKeys });
-        } else {
-            this.setState({
-                openKeys: latestOpenKey ? [latestOpenKey] : [],
-            });
-        }
-    }
-
-    handleClick = (e) =>{
-        const { key } = e;
-
-        browserHistory.push(`#${key}`)
-    }
 
     getMenuList = (DataList)=> {
         return DataList.map((v)=>{
@@ -137,7 +115,7 @@ export default class App extends Component {
     }
 
     render() {
-        const { collapsed, DataList, openKeys } = this.state;
+        const { collapsed, DataList } = this.state;
         const { pathname } = this.props.location;
         const textArr = this.parentPath(DataList, pathname,'','text');
 
@@ -150,22 +128,10 @@ export default class App extends Component {
         );
         return (
             <Layout className={'layout'}>
-                <Sider
-                    trigger={null}
-                    collapsed={this.state.collapsed}>
-                    <div className="logo">
-                        {!collapsed ? 'WebAdmin':'Web'}
-                    </div>
-                    <Menu theme="dark"
-                          mode="inline"
-                          selectedKeys={[pathname]}
-                          openKeys={openKeys}
-                          onOpenChange={this.onOpenChange}
-                          onClick={this.handleClick}
-                    >
-                        {this.getMenuList(DataList)}
-                    </Menu>
-                </Sider>
+                <SliderBar pathname={pathname}
+                           collapsed={collapsed}
+                           parentPath={this.parentPath}
+                />
                 <Layout>
                     <Header style={{
                         background: '#fff',
