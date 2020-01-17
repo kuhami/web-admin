@@ -1,10 +1,10 @@
-import App from '../src/layouts/APP'
-import Index from "../src/routes/index";
-import Index2 from "../src/routes/index2";
-import Home from "../src/routes/Home/index";
-import Nav from "../src/routes/nav";
-import noPages from "../src/routes/NoPages";
-import Login from "../src/layouts/Login";
+import App from '../layouts/APP'
+import Index from "../routes";
+import Index2 from "../routes/index2";
+import Home from "../routes/Home/index";
+import Nav from "../routes/nav";
+import noPages from "../routes/NoPages";
+import Login from "../layouts/Login";
 
 const routeConfig = [
     {   path: '/',

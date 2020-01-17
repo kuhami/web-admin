@@ -3,7 +3,7 @@ import { Result, Icon, Button, message ,Spin } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { postInner } from "../../actions";
-
+import * as api from '../../containers/api'
 //import {postInner} from '../../untils/axios'
 
 class Home extends Component {
@@ -18,7 +18,7 @@ class Home extends Component {
     componentDidMount() {
         const self = this;
         this.props.postInner({
-            url:'api/v1/systems/userinfo'
+            url: api.USER_INFO
         }).then((data)=>{
             console.log(data)
             self.setState({
@@ -63,7 +63,6 @@ class Home extends Component {
     }
 }
 const mapStateToProps = (state, ownProps) =>{
-    console.log(state,ownProps)
     return {
         home:state.home
     }

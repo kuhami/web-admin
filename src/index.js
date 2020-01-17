@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { Router, hashHistory  } from 'react-router';
-import routeConfig from '../config/routeConfig';
+import routeConfig from './containers/routeConfig';
 import configureStore from './store/configureStore'
 
 const store = configureStore();
