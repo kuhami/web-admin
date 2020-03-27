@@ -27,6 +27,7 @@ console.log('Web项目目录 \t: '.green + path.resolve('./'))
 console.log('编译环境 \t: '.green + program.env);
 console.log('项目名称 \t: '.green + program.project);
 
+console.log('Start Building...'.yellow)
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
